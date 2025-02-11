@@ -369,7 +369,7 @@ void Gimbal_SystemCalc(float Gimbal_pitch, float Gimbal_yaw)
 	}
 	else if (gimbal_get_ctrl->chassis_mode == CHASSIS_NORMAL) {
 	        if(rc_data->RemoteMode == REMOTE_INPUT)
-            	 rotate  = (float )rc_data->Key_CH[2] * 4000 * PI + FeedForward_Calc(&FF_rotete, rc_data->Key_CH[2] * 4000 );  
+            	 rotate  = (float )rc_data->Key_CH[2] * 2000 * PI + FeedForward_Calc(&FF_rotete, rc_data->Key_CH[2] * 3000 );  
 	        else if(rc_data->RemoteMode == KEY_MOUSE_INPUT)
             	 rotate  = (float )rc_data->Mouse_Ch[1] * 4000 * PI + FeedForward_Calc(&FF_rotete, rc_data->Key_CH[2] * 4000 );
 	} 

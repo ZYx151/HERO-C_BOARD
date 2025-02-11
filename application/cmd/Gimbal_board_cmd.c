@@ -269,8 +269,8 @@ void remote_mode_update()
 			break;
 	    case 2:
 			if(ins->ins_dog->state == Dog_Online) {
-				gimbal_control.mode  = GIMBAL_GYRO_MODE;
-			    send_UI.chassis_mode = CHASSIS_FOLLOW;
+				gimbal_control.mode  = GIMBAL_MIDDLE;
+			    send_UI.chassis_mode = CHASSIS_NORMAL;
 			} else {
 				gimbal_control.mode  = 0;
 			    send_UI.chassis_mode = 0;
@@ -319,8 +319,8 @@ void remote_mode_update()
 		// 小陀螺时平移速度削减
 		 Level_Gain = 5.5f + receive_data.shoot_referee_data.robot_level * 0.5f;
 		 if (send_data.rotate <= 8000 * PI) {
-		     left_right_ref = (float )rc_data->Key_CH[0] * Level_Gain * 3000;
-		     forward_back_ref = (float )rc_data->Key_CH[1] * Level_Gain * 3000;
+		     left_right_ref = (float )rc_data->Key_CH[0] * Level_Gain * 1500;
+		     forward_back_ref = (float )rc_data->Key_CH[1] * Level_Gain * 1500;
 		} else {
 		     left_right_ref = (float )rc_data->Key_CH[0] * Level_Gain * (1 - send_data.rotate / 10000.0f) * 0.5f * 4000;
 		     forward_back_ref = (float )rc_data->Key_CH[1] * Level_Gain * (1 - send_data.rotate / 10000.0f) * 0.5f * 4000;
@@ -349,7 +349,6 @@ void remote_mode_update()
     shoot_control.heat_limit_remain = receive_data.shoot_referee_data.heat_limit_remain;  // 剩余热量
 }
 
-
 /**  键鼠控制  **/
 void mouse_key_mode_update()
 {
@@ -368,8 +367,8 @@ void mouse_key_mode_update()
     if (send_UI.chassis_mode != CHASSIS_ZERO_FORCE) {
 		 Level_Gain = 4.5 + receive_data.shoot_referee_data.robot_level;
 		 if (send_data.rotate <= 8000*PI) {
-		chassis->vy = rc_data->key[KEY_PRESS].W  - rc_data->key[KEY_PRESS].S ;
-		chassis->vx = rc_data->key[KEY_PRESS].A  - rc_data->key[KEY_PRESS].D ;
+		chassis->vy = rc_data->key[KEY_PRESS].W  - rc_data->key[KEY_PRESS].S;
+		chassis->vx = rc_data->key[KEY_PRESS].A  - rc_data->key[KEY_PRESS].D;
 		} else {
 		chassis->vy = rc_data->key[KEY_PRESS].W - rc_data->key[KEY_PRESS].S * (1 - send_data.rotate / 10000.0f);
 		chassis->vx = rc_data->key[KEY_PRESS].A - rc_data->key[KEY_PRESS].D * (1 - send_data.rotate / 10000.0f);
